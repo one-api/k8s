@@ -1,7 +1,7 @@
 export DEBIAN_FRONTEND=noninteractive
 set -e
 
-apt-get update
+apt-get update >/dev/null
 apt-get install -y -qq apt-transport-https ca-certificates curl git gnupg gnupg2 gnupg1 containerd >/dev/null
 
 # install golang
@@ -9,10 +9,10 @@ if ! $(type go >/dev/null 2>&1);then curl -L https://go.dev/dl/go1.20.5.linux-am
 
 mkdir -p /etc/apt/keyrings/
 #curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
-curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+curl -sSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
 #echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | tee /etc/apt/sources.list.d/kubernetes.list
 echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list
-apt-get update
+apt-get update >/dev/null
 apt-get install -y -qq kubelet kubeadm kubectl >/dev/null
 apt-mark hold kubelet kubeadm kubectl
 
