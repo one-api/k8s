@@ -1,6 +1,9 @@
 # control plane
 curl -sSL https://raw.githubusercontent.com/one-api/k8s/main/install.sh | sudo sh
 
+# worker
+
+curl -sSL https://raw.githubusercontent.com/one-api/k8s/main/install.sh | sed s'/^kubeadm init$/exit 0/' | sudo sh
 
 # kubectl
 
