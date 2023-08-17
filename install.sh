@@ -100,24 +100,9 @@ oom_score = 0
 EOF
 
 service containerd restart
-
-
-
-#https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/troubleshooting-cni-plugin-related-errors/#an-example-containerd-configuration-file
-# cat <<EOF >kubeadm-config.yaml
-# kind: ClusterConfiguration
-# apiVersion: kubeadm.k8s.io/v1beta3
-# kubernetesVersion: v1.21.0
-# ---
-# kind: KubeletConfiguration
-# apiVersion: kubelet.config.k8s.io/v1beta1
-# cgroupDriver: systemd
-# EOF
-
-#kubeadm init --config kubeadm-config.yaml
-kubeadm init
-
 rm -rf ./containerd/
+
+kubeadm init
 
 mkdir -p $HOME/.kube
 cp -f /etc/kubernetes/admin.conf $HOME/.kube/config
